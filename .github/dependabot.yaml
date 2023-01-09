@@ -6,4 +6,5 @@ updates:
     schedule:
       interval: "daily"
     labels:
-      - "topic: infrastructure"
+      - "topic: dependencies dependabot"
+    target-branch: "dev"
