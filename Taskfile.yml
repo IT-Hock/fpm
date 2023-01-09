@@ -1,0 +1,94 @@
+version: '3'
+
+silent: true
+
+vars:
+  GIT_COMMIT:
+    sh: git log -n 1 --format=%h
+  GIT_BRANCH:
+    sh: git rev-parse --abbrev-ref HEAD
+  GIT_TAG:
+    sh: git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0"
+  GIT_COMMIT_DATE:
+    sh: echo $(git log -n 1 --format=%cd --date=format:%Y-%m-%d)
+  GIT_IS_DIRTY:
+    sh: git diff --quiet || echo "-dirty"
+  BUILD_DATE:
+    sh: date -u +"%Y-%m-%dT%H:%M:%SZ"
+  GITHUB_CLIENT_ID:
+    sh: echo $GITHUB_CLIENTID
+  GITHUB_CLIENT_SECRET:
+    sh: echo $GITHUB_CLIENTSECRET
+  BUILD_VERSION: '{{.GIT_TAG}}'
+  LD_FLAGS: '-X fpm/src/build._Version={{.BUILD_VERSION}} -X fpm/src/build.Commit={{.GIT_COMMIT}} -X fpm/src/build.Date={{.BUILD_DATE}} -X fpm/src/build.Branch={{.GIT_BRANCH}}
+-X "fpm/src/build.GithubClientId={{.GITHUB_CLIENT_ID}}" -X fpm/src/build.GithubClientSecret={{.GITHUB_CLIENT_SECRET}}'
+
+tasks:
+  default:
+    cmds:
+      - rm -r dist > /dev/null 2>&1 || true
+      - task: build-linux-amd64
+      - task: build-linux-arm
+      - task: build-darwin-amd64
+
+  test:
+    cmds:
+      - go test -v ./...
+
+  bench:
+    cmds:
+      - go test -bench=. ./...
+
+  build:
+    internal: true
+    status:
+      - dist/fpm.{{.GOOS}}-{{.GOARCH}} -v
+    sources:
+      - src/**/*
+    cmds:
+      - echo "Building fpm for {{.GOOS}}-{{.GOARCH}}"
+      - rm dist/fpm.{{.GOOS}}-{{.GOARCH}}* > /dev/null 2>&1 || true
+      - mkdir -p dist/release  > /dev/null 2>&1 || true
+      - go build -o dist/fpm.{{.GOOS}}-{{.GOARCH}} -ldflags "{{.LD_FLAGS}} -X fpm/src/build._Debug=0" ./src/ > /dev/null 2>&1
+      - gpg --armor --output dist/fpm.{{.GOOS}}-{{.GOARCH}}.sig --detach-sig dist/fpm.{{.GOOS}}-{{.GOARCH}} > /dev/null 2>&1
+      - shasum -a 256 dist/fpm.{{.GOOS}}-{{.GOARCH}} > dist/fpm.{{.GOOS}}-{{.GOARCH}}.sha256 > /dev/null 2>&1
+      - tar -czf dist/release/fpm.{{.GOOS}}-{{.GOARCH}}.tar.gz -C dist fpm.{{.GOOS}}-{{.GOARCH}} fpm.{{.GOOS}}-{{.GOARCH}}.sig fpm.{{.GOOS}}-{{.GOARCH}}.sha256 > /dev/null 2>&1
+
+  build-debug:
+    internal: true
+    status:
+      - bin/fpm.{{.GOOS}}-{{.GOARCH}}-d -v
+    sources:
+      - src/**/*
+    cmds:
+      - go build -o ./bin/fpm.{{.GOOS}}-{{.GOARCH}}-d -v -ldflags "{{.LD_FLAGS}} -X fpm/src/build._Debug=1" ./src/ > /dev/null
+
+  build-linux-amd64:
+    deps:
+      - task: build
+        vars: {GOOS: "linux", GOARCH: "amd64"}
+    cmds:
+      - echo "Finished building fpm for linux-amd64"
+
+  build-linux-arm:
+    deps:
+      - task: build
+        vars: {GOOS: "linux", GOARCH: "arm64"}
+    cmds:
+      - echo "Finished building fpm for linux-arm64"
+
+  build-darwin-amd64:
+    deps:
+      - task: build
+        vars: {GOOS: "darwin", GOARCH: "amd64"}
+    cmds:
+      - echo "Finished building fpm for darwin-amd64"
+
+  run:
+    cmds:
+      - go run ./src/ -c ./config.yml
+
+  run-debug:
+    cmds:
+      - task: build-debug
+      - ./bin/fpm

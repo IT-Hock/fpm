@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Test" type="TaskRunConfiguration" factoryName="TaskRunConfiguration">
+    <taskfile taskPath="/usr/bin/go-task" filename="$PROJECT_DIR$/Taskfile.yml" task="test" workingDirectory="" arguments="" pty="false">
+      <envs />
+      <vars />
+    </taskfile>
+    <method v="2" />
+  </configuration>
+</component>
