@@ -51,15 +51,13 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 
-      - name: Set up Go
-        uses: actions/setup-go@v3
+      - name: Setup Golang with cache
+        uses: magnetikonline/action-golang-cache@v3
         with:
-          go-version: 1.19
-          cache: true
+          go-version-file: go.mod
+
       - name: Install dependencies
         run: go get .
-        with:
-          cache: true
 
       - name: Test with Go
         run: go test -json > TestResults-${{ matrix.go-version }}.json
