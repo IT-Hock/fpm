@@ -17,10 +17,9 @@
   <p align="center">
     The fish package manager allows you to easily install and manage fish extensions and themes.
     <br />
-    <a href="https://github.com/IT-Hock/fpm"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/IT-Hock/fpm/wiki"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/IT-Hock/fpm">View Demo</a>
     ·
     <a href="https://github.com/IT-Hock/fpm/issues">Report Bug</a>
     ·
@@ -115,11 +114,6 @@ Don't forget to give the project a star! Thanks again!
 ## License
 
 Distributed under the AGPL-3.0 License. See `LICENSE` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
