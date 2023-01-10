@@ -91,15 +91,61 @@ func main() {
 
 	flag.Parse()
 
+	if utils.FlagVersion() {
+		utils.Println("%s", build.VersionString)
+		os.Exit(0)
+	}
+
+	if utils.FlagUpdate() {
+		err := utils.CheckPackageCache()
+		if err != nil {
+			if err == utils.ErrPackageCacheNotFound {
+				cacheDir, err := utils.GetCacheDirectory()
+				if err != nil {
+					panic(err)
+				}
+
+				file, err := os.Create(cacheDir + "/fpm/packages.json")
+				if err != nil {
+					return
+				}
+
+				_, err = file.WriteString("{}")
+				if err != nil {
+					return
+				}
+
+				err = file.Close()
+				if err != nil {
+					return
+				}
+			} else {
+				return
+			}
+		}
+
+		cache, err := types.GetPackageCache()
+		if err != nil {
+			utils.Println("<red>Failed to update package cache</red>")
+			utils.Println("<red>%s</red>", err.Error())
+			return
+		}
+
+		err = cache.Update()
+		if err != nil {
+			utils.Println("<red>Failed to update package cache</red>")
+			utils.Println("<red>%s</red>", err.Error())
+			return
+		}
+
+		utils.Println("Updated package cache")
+		os.Exit(0)
+	}
+
 	if flag.NArg() == 0 || flag.Arg(0) == "help" || flag.Arg(0) == "h" {
 		printHelp()
 
 		os.Exit(1)
-	}
-
-	if utils.FlagVersion() {
-		utils.Println("%s", build.VersionString)
-		os.Exit(0)
 	}
 
 	command := flag.Arg(0)

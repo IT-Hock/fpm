@@ -22,7 +22,7 @@ type Package struct {
 	Repository   string   `json:"repository"`
 	Dependencies []string `json:"dependencies"`
 
-	IsTheme bool
+	IsTheme bool `json:"-"`
 }
 
 func (p *Package) Equals(other *Package) bool {

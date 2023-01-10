@@ -11,7 +11,14 @@ var (
 
 	flagShortVersion = flag.Bool("v", false, "Show the version of fpm")
 	flagVersion      = flag.Bool("version", false, "Show the version of fpm")
+
+	flagShortUpdate = flag.Bool("u", false, "Update fpm repository")
+	flagUpdate      = flag.Bool("update", false, "Update fpm repository")
 )
+
+func FlagUpdate() bool {
+	return *flagShortUpdate || *flagUpdate
+}
 
 func FlagVersion() bool {
 	return *flagShortVersion || *flagVersion

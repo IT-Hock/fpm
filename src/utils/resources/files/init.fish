@@ -61,8 +61,6 @@ end
 for pkg in $FPM_CONFIG/packages/* $FPM_PATH/packages/*
     test -d $pkg
     and include_package (basename $pkg) (basename $pkg)
-
-    echo $pkg
 end
 
 source "$FPM_PATH/completions.fish"

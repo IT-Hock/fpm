@@ -3,6 +3,8 @@ package types
 import (
 	"encoding/json"
 	"fpm/src/utils"
+	"io"
+	"net/http"
 	"os"
 	"path"
 	"regexp"
@@ -121,6 +123,10 @@ func (p *InstalledPackages) LinkPackages() error {
 
 func GetPackageCache() (*Packages, error) {
 	if packageCache == nil {
+		if err := utils.CheckPackageCache(); err != nil {
+			return nil, err
+		}
+
 		packageCache = &Packages{}
 		err := packageCache.load()
 		if err != nil {
@@ -238,4 +244,56 @@ func (p *Packages) GetTheme(name string, author string) (*Package, error) {
 	}
 
 	return nil, utils.ErrPackageNotFound
+}
+
+func (p *Packages) Update() error {
+	cacheDir, _ := utils.GetCacheDirectory()
+
+	config := utils.GetConfig()
+	if config == nil {
+		return utils.ErrConfigNotFound
+	}
+
+	// Get packages
+	resp, err := http.Get(config.PackageRepository)
+	if err != nil {
+		return err
+	}
+
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+			panic(err)
+		}
+	}(resp.Body)
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(body, &p)
+	if err != nil {
+		return err
+	}
+
+	// Write to packages.json
+	file, err := os.Create(cacheDir + "/fpm/packages.json")
+	if err != nil {
+		return err
+	}
+
+	defer func(Close func() error) {
+		err := Close()
+		if err != nil {
+			panic(err)
+		}
+	}(file.Close)
+
+	err = json.NewEncoder(file).Encode(p)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

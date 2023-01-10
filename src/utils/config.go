@@ -12,6 +12,8 @@ import (
 type Config struct {
 	GithubToken string
 	GitlabToken string
+
+	PackageRepository string `kvp:"true" type:"string" default:"https://raw.githubusercontent.com/IT-Hock/fpm-repository/master/packages.json"`
 }
 
 func (c *Config) Set(key, value string) error {
