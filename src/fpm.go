@@ -97,6 +97,11 @@ func main() {
 		os.Exit(1)
 	}
 
+	if utils.FlagVersion() {
+		utils.Println("%s", build.VersionString)
+		os.Exit(0)
+	}
+
 	command := flag.Arg(0)
 	for _, c := range ConfiguredCommands {
 		if c.MatchesCommand(command) {

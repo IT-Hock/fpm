@@ -2,6 +2,8 @@ version: '3'
 
 silent: true
 
+dotenv: ['.env', '{{.ENV}}/.env.', '{{.HOME}}/.env']
+
 vars:
   GIT_COMMIT:
     sh: git log -n 1 --format=%h
@@ -15,13 +17,9 @@ vars:
     sh: git diff --quiet || echo "-dirty"
   BUILD_DATE:
     sh: date -u +"%Y-%m-%dT%H:%M:%SZ"
-  GITHUB_CLIENT_ID:
-    sh: echo $GITHUB_CLIENTID
-  GITHUB_CLIENT_SECRET:
-    sh: echo $GITHUB_CLIENTSECRET
   BUILD_VERSION: '{{.GIT_TAG}}'
   LD_FLAGS: '-X fpm/src/build._Version={{.BUILD_VERSION}} -X fpm/src/build.Commit={{.GIT_COMMIT}} -X fpm/src/build.Date={{.BUILD_DATE}} -X fpm/src/build.Branch={{.GIT_BRANCH}}
--X "fpm/src/build.GithubClientId={{.GITHUB_CLIENT_ID}}" -X fpm/src/build.GithubClientSecret={{.GITHUB_CLIENT_SECRET}}'
+-X "fpm/src/build.GithubClientId=$GITHUB_CLIENT_ID" -X fpm/src/build.GithubClientSecret=$GITHUB_CLIENT_ID'
 
 tasks:
   default:
@@ -47,6 +45,7 @@ tasks:
       - src/**/*
     cmds:
       - echo "Building fpm for {{.GOOS}}-{{.GOARCH}}"
+      - if [ $GITHUB_CLIENT_ID != "" ]; then echo "Compiling with GitHub Login Support"; fi
       - rm dist/fpm.{{.GOOS}}-{{.GOARCH}}* > /dev/null 2>&1 || true
       - mkdir -p dist/release  > /dev/null 2>&1 || true
       - go build -o dist/fpm.{{.GOOS}}-{{.GOARCH}} -ldflags "{{.LD_FLAGS}} -X fpm/src/build._Debug=0" ./src/ > /dev/null 2>&1
