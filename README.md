@@ -1,10 +1,17 @@
 <a name="readme-top"></a>
 
+<div align="center">
+
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
+
+[![Go Version][go-shield]][go-url]
+[![Latest Release][release-shield]][release-url]
+
 [![AGPL v3 License][license-shield]][license-url]
+</div>
 
 <br />
 <div align="center">
@@ -49,7 +56,11 @@
 
 ## About The Project
 
+<div align="center">
+
 [![FPM Screen Shot][product-screenshot]](https://github.com/IT-Hock/fpm/releases)
+
+</div>
 
 The fish package manager was born out of frustration over other "package managers" for the fish shell.
 A main goal was to have a package manager that's as easy and intuitive as others,
@@ -60,7 +71,14 @@ packages using your web browser.
 
 ### Built With
 
-[![Golang][Golang]][Golang-url] [![Goland][Goland]][Goland-url] [![Bootstrap][Bootstrap.com]][Bootstrap-url] [![JQuery][JQuery.com]][JQuery-url]
+<div align="center">
+
+[![Golang][Golang]][Golang-url]
+[![Goland][Goland]][Goland-url]
+[![Bootstrap][Bootstrap.com]][Bootstrap-url]
+[![JQuery][JQuery.com]][JQuery-url]
+
+</div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -80,7 +98,8 @@ and run directly.
    ```
 4. It's recommended to login to github using the `fpm github login` command. This is to prevent rate limiting.
    You can also use a personal access token to login.<br/>
-   <b>NOTE: The subcommand login is only available in this' repository release builds as only those contain a github client id and secret.</b><br/>
+   <b>NOTE: The subcommand login is only available in this' repository release builds as only those contain a github
+   client id and secret.</b><br/>
    See `fpm github login --help` for more information.
 
 FPM is now installed and ready to use.
@@ -92,9 +111,11 @@ For example a completion file will be created to enable tab completion for the `
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any
+contributions you make are **greatly appreciated**.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also
+simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
 
 1. Fork the Project
@@ -112,23 +133,47 @@ Distributed under the AGPL-3.0 License. See `LICENSE` for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 [contributors-shield]: https://img.shields.io/github/contributors/IT-Hock/fpm.svg?style=for-the-badge
+
 [contributors-url]: https://github.com/IT-Hock/fpm/graphs/contributors
+
 [forks-shield]: https://img.shields.io/github/forks/IT-Hock/fpm.svg?style=for-the-badge
+
 [forks-url]: https://github.com/IT-Hock/fpm/network/members
+
 [stars-shield]: https://img.shields.io/github/stars/IT-Hock/fpm.svg?style=for-the-badge
+
 [stars-url]: https://github.com/IT-Hock/fpm/stargazers
+
 [issues-shield]: https://img.shields.io/github/issues/IT-Hock/fpm.svg?style=for-the-badge
+
 [issues-url]: https://github.com/IT-Hock/fpm/issues
+
 [license-shield]: https://img.shields.io/github/license/IT-Hock/fpm.svg?style=for-the-badge
+
 [license-url]: https://github.com/IT-Hock/fpm/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
+
+[go-shield]: https://img.shields.io/github/go-mod/go-version/IT-Hock/fpm?style=for-the-badge
+
+[go-url]: https://golang.org/
+
+[release-shield]: https://img.shields.io/github/v/tag/IT-Hock/fpm?label=Release&logo=task&sort=semver&style=for-the-badge
+
+[release-url]: https://github.com/IT-Hock/fpm/releases
+
 [product-screenshot]: images/preview.svg
+
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+
 [Bootstrap-url]: https://getbootstrap.com
+
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
+
+[JQuery-url]: https://jquery.com
+
 [Golang]: https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white
+
 [Golang-url]: https://golang.org/
+
 [Goland]: https://img.shields.io/badge/GoLand-000000?style=for-the-badge&logo=goland&logoColor=white
+
 [Goland-url]: https://www.jetbrains.com/go/
