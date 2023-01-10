@@ -47,12 +47,9 @@
   </ol>
 </details>
 
-
-
-<!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![FPM Screen Shot][product-screenshot]](https://example.com)
+[![FPM Screen Shot][product-screenshot]](https://github.com/IT-Hock/fpm/releases)
 
 The fish package manager was born out of frustration over other "package managers" for the fish shell.
 A main goal was to have a package manager that's as easy and intuitive as others,
@@ -63,10 +60,7 @@ packages using your web browser.
 
 ### Built With
 
-* [![Golang][Golang]][Golang-url]
-* [![Goland][Goland]][Goland-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+[![Golang][Golang]][Golang-url] [![Goland][Goland]][Goland-url] [![Bootstrap][Bootstrap.com]][Bootstrap-url] [![JQuery][JQuery.com]][JQuery-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
