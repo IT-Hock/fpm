@@ -9,9 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.1] - 2023-01-10
 
+- fix: no github client id was building using CI
+- chore: add -v/--version to output current version
+
 ## [0.1.0] - 2023-01-09
 
--   First working version
+-  First working version
 
 [Unreleased]: https://github.com/IT-Hock/fpm/compare/0.1.1...HEAD
 
