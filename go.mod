@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/google/go-github/v49 v49.0.0
-	github.com/xanzy/go-gitlab v0.78.0
+	github.com/xanzy/go-gitlab v0.80.3
 	golang.org/x/oauth2 v0.4.0
 	golang.org/x/term v0.4.0
 	r00t2.io/gosecret v1.1.5
